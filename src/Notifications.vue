@@ -1,6 +1,6 @@
 <template>
 <div
-  class="notifications"
+  :class="['notifications', textAlign]"
   :style="styles"
 >
   <component
@@ -137,6 +137,14 @@ const Component = {
     max: {
       type: Number,
       default: Infinity
+    },
+
+    textAlign: {
+      type: String,
+      default: '',
+      validator (value) {
+        return value === 'left' || value === 'center' || value === 'right' || value === ''
+      }
     }
   },
   data () {
@@ -325,7 +333,15 @@ export default Component
   display: block;
   position: fixed;
   z-index: 5000;
+  text-align: left;
 }
+.notifications.center {
+  text-align: center;
+}
+.notifications.right {
+  text-align: right;
+}
+
 
 .notification-wrapper {
   display: block;
@@ -339,7 +355,6 @@ export default Component
   display: block;
   box-sizing: border-box;
   background: white;
-  text-align: left;
 }
 
 .notification-title {
@@ -351,24 +366,39 @@ export default Component
   padding: 10px;
   margin: 0 5px 5px;
 
+  color: #495061;
+  background: #EAF4FE;
+  border: 1px solid #D4E8FD;
+  /* color: white; */
+  /* background: #44A4FC; */
+  /* border-left: 5px solid #187FE7; */
+}
+
+.vue-notification.black {
   color: white;
-  background: #44A4FC;
-  border-left: 5px solid #187FE7;
+  background: #333;
+  border: 1px solid #808080;
 }
 
 .vue-notification.warn {
+  color: white;
   background: #ffb648;
-  border-left-color: #f48a06;
+  border: 1px solid #f48a06;
+  /* border-left-color: #f48a06; */
 }
 
 .vue-notification.error {
+  color: white;
   background: #E54D42;
-  border-left-color: #B82E24;
+  border: 1px solid #B82E24;
+  /* border-left-color: #B82E24; */
 }
 
 .vue-notification.success {
+  color: white;
   background: #68CD86;
-  border-left-color: #42A85F;
+  border: 1px solid #42A85F;
+  /* border-left-color: #42A85F; */
 }
 
 .vn-fade-enter-active, .vn-fade-leave-active, .vn-fade-move  {

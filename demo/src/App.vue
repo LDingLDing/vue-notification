@@ -2,15 +2,19 @@
   <div id="app">
     <h2>Vue.js Notification
       <br>
-      <a href="https://github.com/euvl/vue-notification/blob/master/README.md"
+      <a href="https://github.com/LDingLDing/vue-notification/blob/master/README.md"
          target="readme">Readme</a>
-      <a href="https://github.com/euvl/vue-notification/"
+      <a href="https://github.com/LDingLDing/vue-notification/"
          target="issues">Github</a>
     </h2>
+    <notifications group="foo-short"
+                   position="top center"
+                   :speed="500"
+                   textAlign="center"/>
     <!-- CSS animation example -->
     <notifications group="foo-css"
                    position="bottom left"
-                   :speed="500" />
+                   :speed="500"/>
 
     <!-- Velocity animation example -->
     <notifications group="foo-velocity"
@@ -61,24 +65,37 @@
                    width="100%" />
 
     <div class="content">
+      <p>Short message prompt</p>
+      <button class="info"
+                style="width: 24%"
+                @click="shortShow('foo-short', 'black')">
+          <i class="icon ion-information-circled"/>
+         BLACK(center)
+        </button>
       <p>
         CSS animation:
       </p>
       <div>
+        <button class="info"
+                style="width: 24%"
+                @click="show('foo-css')">
+          <i class="icon ion-information-circled"/>
+          INFO(deafult)
+        </button>
         <button class="success"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-css', 'success')">
           <i class="icon ion-information-circled"/>
           SUCCESS
         </button>
         <button class="warn"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-css', 'warn')">
           <i class="icon ion-alert-circled"/>
           WARNING
         </button>
         <button class="error"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-css', 'error')">
           <i class="icon ion-close-circled"/>
           ERROR
@@ -92,20 +109,26 @@
       </p>
 
       <div>
+        <button class="info"
+                style="width: 24%"
+                @click="show('foo-velocity', 'black')">
+          <i class="icon ion-information-circled"/>
+         BLACK
+        </button>
         <button class="success"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-velocity', 'success')">
           <i class="icon ion-information-circled"/>
           SUCCESS
         </button>
         <button class="warn"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-velocity', 'warn')">
           <i class="icon ion-alert-circled"/>
           WARNING
         </button>
         <button class="error"
-                style="width: 30%"
+                style="width: 24%"
                 @click="show('foo-velocity', 'error')">
           <i class="icon ion-close-circled"/>
           ERROR
@@ -174,6 +197,17 @@ export default {
 
     clean (group) {
       this.$notify({ group, clean: true })
+    },
+
+    shortShow (group, type = '') {
+      this.$notify({
+        group,
+        title: `Test ${type} notification #${this.id++}`,
+        type,
+        data: {
+          randomNumber: Math.random()
+        }
+      })
     }
   }
 }
@@ -247,7 +281,7 @@ body {
 
     .content {
       margin: 0 auto;
-      max-width: 420px;
+      max-width: 600px;
     }
   }
 }
@@ -273,10 +307,9 @@ body {
 
   padding: 10px 20px;
 
-  color: #495061;
-  background: #EAF4FE;
-
-  border: 1px solid #D4E8FD;
+  color: white;
+  background: #44A4FC;
+  border-left: 5px solid #187FE7;
 
   .notification-title {
     letter-spacing: 1px;

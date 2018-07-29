@@ -1,29 +1,23 @@
-<p align="right">
-  <a href="https://www.buymeacoffee.com/yev" target="_blank">
-  <img width="200" alt="screen shot 2018-03-01 at 10 33 39" src="https://user-images.githubusercontent.com/1577802/36840220-21beb89c-1d3c-11e8-98a4-45fc334842cf.png">
-  </a>
-</p>
-
-[![npm version](https://badge.fury.io/js/vue-notification.svg)](https://badge.fury.io/js/vue-notification)
-[![npm](https://img.shields.io/npm/dm/vue-notification.svg)](https://www.npmjs.com/package/vue-notification)
-
 ### Vue.js notifications
 
-Demo: http://vue-notification.yev.io/
 
 <p align="center">
   <img src="https://media.giphy.com/media/xUn3C6FmbGmszMem64/giphy.gif">
 </p>
 
+与[euvl/vue-notification](https://github.com/euvl/vue-notification/)差别如下：
+- 中文化文档
+- 新增textAlign属性，用于配置文字对齐方案
+- 新增black样式及对应demo补充，用于暗色配色的项目
+- 调整默认样式：去除左侧加粗边，更好的适应center、right等位置；默认蓝色修改为较浅的#EAF4FE
+
 ### Install
 
-```bash
-npm install --save vue-notification
-```
+暂无，自行download
 
-### How to
+### 使用方式
 
-In main.js:
+main.js:
 
 ```javascript
 import Vue           from 'vue'
@@ -37,98 +31,99 @@ import Notifications from 'vue-notification/dist/ssr.js'
 Vue.use(Notifications)
 ```
 
-In App.vue:
+App.vue:
 
 ```vue
 <notifications group="foo" />
 ```
 
-In any of your vue files:
+*.vue (way 1)
 
 ```javascript
 this.$notify({
   group: 'foo',
-  title: 'Important message',
-  text: 'Hello user! This is a notification!'
+  title: '重要提示',
+  text: '这是一个通知弹窗!'
 });
 ```
 
-Anywhere else: 
+*.vue (way 2)
 
 ```javascript
 import Vue from 'vue'
 
 Vue.notify({
   group: 'foo',
-  title: 'Important message',
-  text: 'Hello user! This is a notification!'
+  title: '重要提示',
+  text: '这是一个通知弹窗!'
 })
 ```
 
 ### Props
 
-All props are optional.
+所有props都是`可选项`
 
 | Name           | Type    | Default      | Description |
-| ---           | ---     | ---          | ---         |
-| group          | String  | null         | Name of the notification holder, if specified |
-| width          | Number/String  | 300          | Width of notification holder, can be `%`, `px` string or number.<br>Valid values: '100%', '200px', 200 |
-| classes        | String/Array | 'vue-notification' | List of classes that will be applied to notification element |
-| position       | String/Array | 'top right'  | Part of the screen where notifications will pop out |
-| animation-type | String  | 'css'      | Type of animation, currently supported types are `css` and `velocity` |
-| animation-name | String  | null       | Animation name required for `css` animation |
-| animation      | Object  | `$`*         | Animation configuration for `Velocity` animation |
-| duration       | Number  | 3000         | Time (ms) animation stays visible (if **negative** - notification will stay **forever** or until clicked) |
-| speed          | Number  | 300          | Speed of animation showing/hiding |
-| max            | Number  | Infinity     | Maximum number of notifications that can be shown in notification holder |
-| reverse        | Boolean | false        | Show notifications in reverse order |
+| ---            | ---     | ---          | ---         |
+| group          | String  | ''           | 定义通知弹窗的Name，用于调用时指定，类似html中id。全局多种弹窗时需要。|
+| width          | Number/String  | 300          | 通知弹窗的宽，如 `200`, `'200px'`, `'100%'`. 具体说明见[Width](#Width) |
+| textAlign      | String  | ''       | 文字对齐方式。如`left`,`center`, `right`, 可以通过样式覆盖  |
+| classes        | String/Array | 'vue-notification' | 添加在弹窗元素的样式。具体说明见[Style](#Style) |
+| position       | String/Array | 'top right'  | 通知弹窗出现的位置. 具体说明见[Position](#Position) |
+| animation-type | String  | 'css'      | 动画的类型， 提供`css动画` 和 基于`velocity`的js动画|
+| animation-name | String  | 'vn-fade'  | 动画名，仅`animation-type`为`css`有效|
+| animation      | Object  | {enter: {opacity: [1, 0]}, leave: {opacity: [0, 1]}}        | 动画配置，仅`animation-type`为`velocity`有效。配置说明见[Velocity Animation](#Velocity Animation) |
+| duration       | Number  | 3000         | 通知弹窗展示时长(ms)，当传值为`negative`时，**永久**展示，点击关闭。**调试阶段适合用**|
+| speed          | Number  | 300          | 弹窗出现/隐藏的时间(ms) |
+| max            | Number  | Infinity     | 最多可累积展示的通知弹窗个数 |
+| reverse        | Boolean | false        | 新出现通知弹窗叠加位置反向 |
 
-$ = `{enter: {opacity: [1, 0]}, leave: {opacity: [0, 1]}}`
+**注**
+- 自定义模板样式见[自定义模板 (slot)](#自定义模板 (slot))
+- velocity动画的配置见[Velocity Animation](#Velocity Animation)
+
 
 ### API
 
-```javascript
-  this.$notify({
-    // (optional)
-    // Name of the notification holder
-    group: 'foo',
 
-    // (optional)
-    // Class that will be assigned to the notification
-    type: 'warn',
-
-    // (optional)
-    // Title (will be wrapped in div.notification-title)
-    title: 'This is title',
-
-    // Content (will be wrapped in div.notification-content)
-    text: 'This is <b> content </b>',
-
-    // (optional)
-    // Overrides default/provided duration
-    duration: 10000,
-
-    // (optional)
-    // Overrides default/provided animation speed
-    speed: 1000
-
-    // (optional)
-    // Data object that can be used in your template
-    data: {}
-  })
-```
-
-Title and Text can be HTML strings.
-
-Also you can use simplified version:
+最简单的调用
 
 ```javascript
 this.$notify('text')
 ```
 
+完整调用
+
+```javascript
+  this.$notify({
+
+    // 调用的通知弹窗Name
+    group: 'foo',
+
+    // 通知类型，suceess warn error
+    type: 'warn',
+
+    // (optional)
+    title: 'This is title',
+
+    text: 'This is <b> content </b>',
+
+    // (optional)
+    duration: 10000,
+
+    // (optional)
+    speed: 1000
+
+    // (optional)
+    // 传入一些数据用于自定义扩展, 配合slot="body"使用
+    data: {}
+  })
+```
+
+
 ### Groups
 
-If you are planning to use `notification` component for 2 or more completely different types of notifications (for example, authentication error messages in top center and generic app notifications in bottom-right corner) - you can specify `group` property which is essentially a name of notification holder.
+如果你计划将通知组件用于2个或更多完全不同类型的通知（例如，顶部中心的身份验证错误消息和右下角的通用应用程序通知） - 可以通过`group`指定特定的通知弹窗。
 
 Example:
 
@@ -138,19 +133,19 @@ Example:
 ```
 
 ```javascript
-this.$notify({ group: 'auth', text: 'Wrong password, please try again later' })
+this.$notify({ group: 'auth', text: '无权限访问' })
 ```
 
 ### Position
 
-`Position` property requires a string with 2 keywords for vertical and horizontal postion.
+`Position` 属相需要2个关键词分别制定垂直和水平方向上的位置。
 
 Format: `"<vertical> <horizontal>"`.
 
-- Horizontal options: `left`, `center`, `right`
-- Vertical options: `top`, `bottom`
+- vertical 垂直位置: `top`, `bottom`
+- horizontal 水平位置: `left`, `center`, `right`
 
-Default is "top right".
+默认时"top right".
 
 Example:
 
@@ -160,7 +155,7 @@ Example:
 
 ### Style
 
-You can write your own css styles for notifications:
+自定义样式
 
 Structure:
 
@@ -187,8 +182,7 @@ Structure:
   }
 }
 ```
-
-To apply this style you will have to specify "classes" property:
+通过`classes`定义自己的样式
 
 ```vue
   <notifications classes="my-style"/>
@@ -224,16 +218,16 @@ To apply this style you will have to specify "classes" property:
 }
 ```
 
-### Custom template (slot)
+### 自定义模板 (slot)
 
-Optional scope slot named "body" is supported.
+slot="name"
 
 Scope props:
 
 | Name  | Type     | Description                         |
 | ---   | ---      | ---                                 |
-| item  | Object   | notification object                 |
-| close | Function | when called closes the notification |
+| item  | Object   | 配置项，同[Props](#Props)             |
+| close | Function | 当通知关闭时的回调 |
 
 Example:
 
@@ -259,15 +253,18 @@ Example:
 
 ### Width
 
-Width can be set using a string with a percent or pixel extension (if simple number is not enough).
+`width`支持使用字符串或者百分比。
 
 Examples: '100%', '50px', '50', 50
 
 ### Velocity Animation
 
-Plugin can use use `Velocity` library to make js-powered animations. To start using it you will have to manually install `velocity-animate` & supply the librarty to `vue-notification` plugin (reason for doing that is to reduce the size of this plugin).
+如果需要使用`Velocity`动画，需要另外安装一下`velocity-animate`包, 并且声明vue-notification对其的依赖。具体如下：
+```
+npm install velocity-animate --save-dev
+```
 
-In your `main.js`:
+main.js
 
 ```javascript
 import Vue           from 'vue'
@@ -277,33 +274,25 @@ import velocity      from 'velocity-animate'
 Vue.use(Notifications, { velocity })
 ```
 
-In the template you will have to set `animation-type="velocity"`.
-
+在这个例子里组件的prop需要设置为`animation-type="velocity"`
 ```vue
 <notifications animation-type="velocity"/>
 ```
 
-The animation configuration consists of 2 objects/functions: `enter` and `leave`.
+配置项参考如下，包含`enter`和`leave`两个属性，可以为对象或者函数方法
 
 Example:
-
 ```javascript
-/*
- * Both 'enter' and 'leave' can be either an object or a function
- */
 animation = {
   enter (element) {
-     /*
-      *  "element" - is a notification element
-      *    (before animation, meaning that you can take it's initial height, width, color, etc)
-      */
+    
      let height = element.clientHeight
 
      return {
-       // Animates from 0px to "height"
+       // 高度从0px到$height
        height: [height, 0],
 
-       // Animates from 0 to random opacity (in range between 0.5 and 1)
+       // 透明度从0到0.5至1之间的随机数
        opacity: [Math.random() * 0.5 + 0.5, 0]
      }  
   },
@@ -320,41 +309,15 @@ animation = {
   animation="animation"/>
 ```
 
+**注** 完全配置见[velocityjs官网](http://velocityjs.org/)
+
 ### Cleaning
 
-To remove all notifications, use `clean: true` parameter.
+如果需要展示新的通知弹窗并 强制清除其他所有通知弹窗，可以使用 `clean: true`
 
 ```javascript
 this.$notify({
   group: 'foo',
   clean: true
 })
-```
-
-### FAQ
-
-Check closed issues with `FAQ` label to get answers for most asked questions.
-
-### Development
-
-```bash
-To run an example:
-
-# Build main library
-
-cd vue-notification
-npm install
-npm run build
-
-# Build and run demo
-
-cd demo
-npm install
-npm run dev
-
-# Run tests
-npm run test
-
-# Watch unit tests
-npm run unit:watch
 ```

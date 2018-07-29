@@ -330,6 +330,14 @@ var Component = {
     max: {
       type: Number,
       default: Infinity
+    },
+
+    textAlign: {
+      type: String,
+      default: '',
+      validator: function validator(value) {
+        return value === 'left' || value === 'center' || value === 'right' || value === '';
+      }
     }
   },
   data: function data() {
@@ -664,7 +672,7 @@ exports = module.exports = __webpack_require__(11)();
 
 
 // module
-exports.push([module.i, ".notifications{display:block;position:fixed;z-index:5000}.notification-wrapper{display:block;overflow:hidden;width:100%;margin:0;padding:0}.notification{display:block;box-sizing:border-box;background:#fff;text-align:left}.notification-title{font-weight:600}.vue-notification{font-size:12px;padding:10px;margin:0 5px 5px;color:#fff;background:#44a4fc;border-left:5px solid #187fe7}.vue-notification.warn{background:#ffb648;border-left-color:#f48a06}.vue-notification.error{background:#e54d42;border-left-color:#b82e24}.vue-notification.success{background:#68cd86;border-left-color:#42a85f}.vn-fade-enter-active,.vn-fade-leave-active,.vn-fade-move{transition:all .5s}.vn-fade-enter,.vn-fade-leave-to{opacity:0}", ""]);
+exports.push([module.i, ".notifications{display:block;position:fixed;z-index:5000;text-align:left}.notifications.center{text-align:center}.notifications.right{text-align:right}.notification-wrapper{display:block;overflow:hidden;width:100%;margin:0;padding:0}.notification{display:block;box-sizing:border-box;background:#fff}.notification-title{font-weight:600}.vue-notification{font-size:12px;padding:10px;margin:0 5px 5px;color:#495061;background:#eaf4fe;border:1px solid #d4e8fd}.vue-notification.black{color:#fff;background:#333;border:1px solid gray}.vue-notification.warn{color:#fff;background:#ffb648;border:1px solid #f48a06}.vue-notification.error{color:#fff;background:#e54d42;border:1px solid #b82e24}.vue-notification.success{color:#fff;background:#68cd86;border:1px solid #42a85f}.vn-fade-enter-active,.vn-fade-leave-active,.vn-fade-move{transition:all .5s}.vn-fade-enter,.vn-fade-leave-to{opacity:0}", ""]);
 
 // exports
 
@@ -784,7 +792,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "notifications",
+    class: ['notifications', _vm.textAlign],
     style: (_vm.styles)
   }, [_c(_vm.componentName, {
     tag: "component",
