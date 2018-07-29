@@ -66,21 +66,21 @@ Vue.notify({
 | Name           | Type    | Default      | Description |
 | ---            | ---     | ---          | ---         |
 | group          | String  | ''           | 定义通知弹窗的Name，用于调用时指定，类似html中id。全局多种弹窗时需要。|
-| width          | Number/String  | 300          | 通知弹窗的宽，如 `200`, `'200px'`, `'100%'`. 具体说明见[Width](#Width) |
+| width          | Number/String  | 300          | 通知弹窗的宽，如 `200`, `'200px'`, `'100%'`. 具体说明见[Width](#width) |
 | textAlign      | String  | ''       | 文字对齐方式。如`left`,`center`, `right`, 可以通过样式覆盖  |
-| classes        | String/Array | 'vue-notification' | 添加在弹窗元素的样式。具体说明见[Style](#Style) |
-| position       | String/Array | 'top right'  | 通知弹窗出现的位置. 具体说明见[Position](#Position) |
+| classes        | String/Array | 'vue-notification' | 添加在弹窗元素的样式。具体说明见[Style](#style) |
+| position       | String/Array | 'top right'  | 通知弹窗出现的位置. 具体说明见[Position](#position) |
 | animation-type | String  | 'css'      | 动画的类型， 提供`css动画` 和 基于`velocity`的js动画|
 | animation-name | String  | 'vn-fade'  | 动画名，仅`animation-type`为`css`有效|
-| animation      | Object  | {enter: {opacity: [1, 0]}, leave: {opacity: [0, 1]}}        | 动画配置，仅`animation-type`为`velocity`有效。配置说明见[Velocity Animation](#Velocity Animation) |
+| animation      | Object  | {enter: {opacity: [1, 0]}, leave: {opacity: [0, 1]}}        | 动画配置，仅`animation-type`为`velocity`有效。配置说明见[Velocity Animation](#velocity-animation) |
 | duration       | Number  | 3000         | 通知弹窗展示时长(ms)，当传值为`negative`时，**永久**展示，点击关闭。**调试阶段适合用**|
 | speed          | Number  | 300          | 弹窗出现/隐藏的时间(ms) |
 | max            | Number  | Infinity     | 最多可累积展示的通知弹窗个数 |
 | reverse        | Boolean | false        | 新出现通知弹窗叠加位置反向 |
 
 **注**
-- 自定义模板样式见[自定义模板 (slot)](#自定义模板 (slot))
-- velocity动画的配置见[Velocity Animation](#Velocity Animation)
+- 自定义模板样式见[自定义模板 (slot)](#自定义模板-slot)
+- velocity动画的配置见[Velocity Animation](#velocity-animation)
 
 
 ### API
@@ -226,7 +226,7 @@ Scope props:
 
 | Name  | Type     | Description                         |
 | ---   | ---      | ---                                 |
-| item  | Object   | 配置项，同[Props](#Props)             |
+| item  | Object   | 配置项，同[Props](#props)             |
 | close | Function | 当通知关闭时的回调 |
 
 Example:
