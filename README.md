@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="https://media.giphy.com/media/xUn3C6FmbGmszMem64/giphy.gif">
+  <img src="https://media.giphy.com/media/5YefDkaX1iVD6H6uvQ/giphy.gif">
 </p>
 
 与[euvl/vue-notification](https://github.com/euvl/vue-notification/)差别如下：
